@@ -19,7 +19,8 @@ namespace PressureVessel
         public double MaterialCost { get; set; }
         public double WeldHours { get; set; }
         public double BuildHours { get; set;}
-        public double TotalHours { get; set; }  
+        public double TotalHours { get; set; }
+        public double ConnectionTime { get; set; }  
 
         // ... other properties ...
     }

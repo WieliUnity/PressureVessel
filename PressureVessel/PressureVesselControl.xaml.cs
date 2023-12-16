@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,6 +14,7 @@ namespace PressureVessel
             InitializeComponent();
         }
         private readonly Dictionary<string, ListSortDirection> _sortDirections = new Dictionary<string, ListSortDirection>();
+        private DesignCalculations designCalculations = new DesignCalculations();
 
         private void btnCalculate_Click(object sender, RoutedEventArgs e)
         {
@@ -43,6 +45,53 @@ namespace PressureVessel
             {
                 MessageBox.Show("Please enter valid numbers in all fields.");
             }
+
+
+        }
+
+        private void BtnCalculateThk_Click(object sender, RoutedEventArgs e)
+        {
+            if (cmbMaterial.SelectedItem is ComboBoxItem selectedMaterial)
+            {
+                string material = selectedMaterial.Content.ToString();
+                double diameter = double.Parse(txtDiameter.Text);
+                double pressure = double.Parse(txtDesignPressure.Text);
+                int temperature = int.Parse(txtTemperature.Text);
+                temperature = (int)Math.Ceiling(temperature / 10.0) * 10;
+                double corrosionAllowance = double.Parse(txtCorrosionAllowance.Text);
+                double extraThickness = double.Parse(txtExtraThickness.Text);
+
+                double fbValue = designCalculations.FindFbValue(material, temperature);
+
+                if (fbValue == -1)
+                {
+                    MessageBox.Show("No data found for the selected material and temperature.");
+                    return;
+                }
+
+                double minThickness = designCalculations.CalculateMinThickness(pressure, diameter, fbValue);
+                double minThicknessIncSafety = designCalculations.CalculateMinThicknessIncSafety(minThickness, corrosionAllowance);
+                int finalThickness = designCalculations.CalculateFinalThickness(minThicknessIncSafety, extraThickness);
+                double currentUsage = designCalculations.CalculateCurrentUsage(minThicknessIncSafety, finalThickness);
+
+                txtCalculatedThickness.Text = finalThickness.ToString();
+                txtUtnyttjandegrad.Text = currentUsage.ToString("P");
+                UpdateMantletTabFields();
+            }
+            else
+            {
+                MessageBox.Show("Please select a material.");
+            }
+        }
+
+
+        private void UpdateMantletTabFields()
+        {
+            // Assuming the Mantlet tab's TextBoxes have been named as follows:
+            // txtVesselHeight, txtVesselDiameter, and txtThickness
+            txtVesselDiameter.Text = txtDiameter.Text; // Update Diameter
+            txtVesselHeight.Text = txtHeight.Text;     // Update Height
+            txtThickness.Text = txtCalculatedThickness.Text; // Update Thickness
         }
 
         private void GridViewColumnHeaderClickedHandler(object sender, RoutedEventArgs e)
