@@ -6,8 +6,9 @@
         <TabItem Header="Start">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="13*"/>
-                    <ColumnDefinition Width="77*"/>
+                    <ColumnDefinition Width="65*"/>
+                    <ColumnDefinition Width="52*"/>
+                    <ColumnDefinition Width="333*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -24,32 +25,32 @@
                 </Grid.RowDefinitions>
 
                 <!-- Diameter -->
-                <Label Content="Diameter (mm)" Grid.Row="0" Grid.ColumnSpan="2" Margin="0,0,0,26" Grid.RowSpan="2"/>
-                <TextBox x:Name="txtDiameter" Grid.Row="0" Margin="95,0,0,26" Grid.Column="1" Grid.RowSpan="2"/>
+                <Label Content="Diameter (mm)" Grid.Row="0" Grid.ColumnSpan="3" Margin="0,0,0,26" Grid.RowSpan="2"/>
+                <TextBox x:Name="txtDiameter" Grid.Row="0" Margin="43,0,0,26" Grid.Column="2" Grid.RowSpan="2"/>
 
                 <!-- Height -->
-                <Label Content="Height (mm)" Grid.Row="1" Grid.ColumnSpan="2" Margin="0,0,0,26" Grid.RowSpan="2"/>
-                <TextBox x:Name="txtHeight" Grid.Row="1" Margin="95,0,0,26" Grid.Column="1" Grid.RowSpan="2"/>
+                <Label Content="Height (mm)" Grid.Row="1" Grid.ColumnSpan="3" Margin="0,0,0,4"/>
+                <TextBox x:Name="txtHeight" Grid.Row="1" Margin="43,0,0,4" Grid.Column="2"/>
 
                 <!-- Design Pressure -->
-                <Label Content="Design Pressure (bar)" Grid.Row="2" Grid.ColumnSpan="2" Margin="0,0,0,26" Grid.RowSpan="2"/>
-                <TextBox x:Name="txtDesignPressure" Grid.Row="2" Margin="95,0,0,26" Grid.Column="1" Grid.RowSpan="2"/>
+                <Label Content="Design Pressure (bar)" Grid.Row="1" Grid.ColumnSpan="3" Margin="0,30,0,26" Grid.RowSpan="3"/>
+                <TextBox x:Name="txtDesignPressure" Grid.Row="1" Margin="43,30,0,26" Grid.Column="2" Grid.RowSpan="3"/>
 
                 <!-- Temperature -->
-                <Label Content="Temperature (°C)" Grid.Row="3" Grid.ColumnSpan="2" Margin="0,0,0,26" Grid.RowSpan="2"/>
-                <TextBox x:Name="txtTemperature" Grid.Row="3" Margin="95,0,0,26" Grid.Column="1" Grid.RowSpan="2"/>
+                <Label Content="Temperature (°C)" Grid.Row="3" Grid.ColumnSpan="3" Margin="0,0,0,26" Grid.RowSpan="2"/>
+                <TextBox x:Name="txtTemperature" Grid.Row="3" Margin="43,0,0,26" Grid.Column="2" Grid.RowSpan="2"/>
 
                 <!-- Corrosion Allowance -->
-                <Label Content="Corrosion Allowance (mm)" Grid.Row="4" Grid.ColumnSpan="2" Margin="0,0,0,26" Grid.RowSpan="2"/>
-                <TextBox x:Name="txtCorrosionAllowance" Grid.Row="4" Margin="95,0,0,26" Grid.Column="1" Grid.RowSpan="2"/>
+                <Label Content="Corrosion Allowance (mm)" Grid.Row="4" Grid.ColumnSpan="3" Margin="0,0,0,26" Grid.RowSpan="2"/>
+                <TextBox x:Name="txtCorrosionAllowance" Grid.Row="4" Margin="43,0,0,26" Grid.Column="2" Grid.RowSpan="2"/>
 
                 <!-- Extra Thickness -->
-                <Label Content="Extra Thickness (mm)" Grid.Row="5" Grid.ColumnSpan="2" Margin="0,0,0,26" Grid.RowSpan="2"/>
-                <TextBox x:Name="txtExtraThickness" Grid.Row="5" Margin="95,0,0,26" Grid.Column="1" Grid.RowSpan="2"/>
+                <Label Content="Extra Thickness (mm)" Grid.Row="4" Grid.ColumnSpan="3" Margin="0,34,0,26" Grid.RowSpan="3"/>
+                <TextBox x:Name="txtExtraThickness" Grid.Row="4" Margin="43,34,0,26" Grid.Column="2" Grid.RowSpan="3"/>
 
                 <!-- Material -->
-                <Label Content="Material" Grid.Row="6" Grid.ColumnSpan="2" Margin="0,0,0,26" Grid.RowSpan="2"/>
-                <ComboBox x:Name="cmbMaterial" Grid.Row="6" Margin="95,0,0,26" Grid.Column="1" Grid.RowSpan="2">
+                <Label Content="Material" Grid.Row="6" Grid.ColumnSpan="3" Margin="0,0,0,26" Grid.RowSpan="2"/>
+                <ComboBox x:Name="cmbMaterial" Grid.Row="6" Margin="43,0,0,26" Grid.Column="2" Grid.RowSpan="2">
                     <ComboBoxItem Content="P265GH"/>
                     <ComboBoxItem Content="1.4301"/>
                     <ComboBoxItem Content="1.4307"/>
@@ -61,20 +62,20 @@
 
                 <!-- Spacer -->
 
-                <Label Content="" Grid.Row="7" Grid.ColumnSpan="2" Margin="0,0,0,26" Grid.RowSpan="2"/>
+                <Label Content="" Grid.Row="7" Grid.ColumnSpan="3" Margin="0,0,0,26" Grid.RowSpan="2"/>
                 <!-- Adjust height for desired spacing -->
 
 
                 <!-- Calculated Thickness -->
-                <Label Content="Calculated Thickness (mm)" Grid.Row="8" Grid.ColumnSpan="2" Margin="0,0,0,26" Grid.RowSpan="2"/>
-                <TextBox x:Name="txtCalculatedThickness" Grid.Row="8" Margin="95,0,0,26" IsReadOnly="True" Grid.Column="1" Grid.RowSpan="2"/>
+                <Label Content="Calculated Thickness (mm)" Grid.Row="8" Grid.ColumnSpan="3" Margin="0,0,0,26" Grid.RowSpan="2"/>
+                <TextBox x:Name="txtCalculatedThickness" Grid.Row="8" Margin="43,0,0,26" IsReadOnly="True" Grid.Column="2" Grid.RowSpan="2"/>
 
                 <!-- Utnyttjandegrad -->
-                <Label Content="Utnyttjandegrad" Grid.Row="9" Grid.ColumnSpan="2" Margin="0,0,0,30" Grid.RowSpan="2"/>
-                <TextBox x:Name="txtUtnyttjandegrad" Grid.Row="9" Margin="95,0,0,30" IsReadOnly="True" Grid.Column="1" Grid.RowSpan="2"/>
+                <Label Content="Utnyttjandegrad" Grid.Row="8" Grid.ColumnSpan="3" Margin="0,35,0,30" Grid.RowSpan="3"/>
+                <TextBox x:Name="txtUtnyttjandegrad" Grid.Row="8" Margin="43,35,0,30" IsReadOnly="True" Grid.Column="2" Grid.RowSpan="3"/>
 
                 <!-- Calculate Button -->
-                <Button x:Name="btnCalculateThickness" Content="Calculate" Click="BtnCalculateThk_Click" Grid.Row="10" Margin="0,10,0,0" Grid.ColumnSpan="2"/>
+                <Button x:Name="btnCalculateThickness" Content="Calculate" Click="BtnCalculateThk_Click" Grid.Row="10" Margin="0,10,0,0" Grid.ColumnSpan="3"/>
             </Grid>
         </TabItem>
         <TabItem Header="Mantlet">
@@ -163,8 +164,14 @@
             </Grid>
         </TabItem>
         <TabItem Header="Nozzles">
-            <!-- Content for Start tab -->
+            <StackPanel>
+                <Label Content="Amount of Different Dimensions"/>
+                <TextBox x:Name="txtNozzleAmount" TextChanged="TxtNozzleAmount_TextChanged"/>
+                <StackPanel x:Name="nozzleDynamicContent"/>
+            </StackPanel>
+
         </TabItem>
+
         <TabItem Header="Dished Ends">
             <!-- Content for Start tab -->
         </TabItem>

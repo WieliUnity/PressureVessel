@@ -137,5 +137,99 @@ namespace PressureVessel
             dataView.Refresh();
         }
 
+        private void TxtNozzleAmount_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (int.TryParse(txtNozzleAmount.Text, out int amount))
+            {
+                CreateDynamicControls(amount);
+            }
+        }
+
+        private void CreateDynamicControls(int amount)
+        {
+            nozzleDynamicContent.Children.Clear();
+
+            // Create the header grid first
+            Grid headerGrid = new Grid();
+            headerGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Auto) });
+            headerGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+            headerGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+            headerGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+            headerGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+            headerGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+
+            // Add header labels
+            headerGrid.Children.Add(CreateHeaderLabel("Nozzle Type", 0));
+            headerGrid.Children.Add(CreateHeaderLabel("Amount", 1));
+            headerGrid.Children.Add(CreateHeaderLabel("Nozzle Size", 2));
+            headerGrid.Children.Add(CreateHeaderLabel("Pressure Class", 3));
+            headerGrid.Children.Add(CreateHeaderLabel("Price", 4));
+            headerGrid.Children.Add(CreateHeaderLabel("Davit", 5));
+
+            // Add the header grid to the stack panel
+            nozzleDynamicContent.Children.Add(headerGrid);
+
+            var nozzleSizes = new List<string> { "DN15", "DN20", "DN25", "DN32", "DN40", "DN50" };
+            var flangeClasses = new List<string> { "PN10", "PN16", "PN40", "150#", "300#", "600#" };
+
+            for (int i = 1; i <= amount; i++)
+            {
+                Grid grid = new Grid();
+                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Auto) });
+                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+
+                Label label = new Label { Content = $"NozzleType {i}" };
+                Grid.SetColumn(label, 0);
+                grid.Children.Add(label);
+
+                TextBox txtAmount = new TextBox { Name = $"txtAmountofSize{i}" };
+                Grid.SetColumn(txtAmount, 1);
+                grid.Children.Add(txtAmount);
+
+                ComboBox cmbNozzleSize = new ComboBox { Name = $"nozzleSize{i}" };
+                nozzleSizes.ForEach(size => cmbNozzleSize.Items.Add(size));
+                Grid.SetColumn(cmbNozzleSize, 2);
+                grid.Children.Add(cmbNozzleSize);
+
+                ComboBox cmbFlangeClass = new ComboBox { Name = $"flangeClass{i}" };
+                flangeClasses.ForEach(flange => cmbFlangeClass.Items.Add(flange));
+                Grid.SetColumn(cmbFlangeClass, 3);
+                grid.Children.Add(cmbFlangeClass);
+
+                TextBox txtPrice = new TextBox { Name = $"txtPrice{i}" };
+                Grid.SetColumn(txtPrice, 4);
+                grid.Children.Add(txtPrice);
+
+                CheckBox chkDavit = new CheckBox { Name = $"chkDavit{i}", Content = "Davit" };
+                Grid.SetColumn(chkDavit, 5);
+                grid.Children.Add(chkDavit);
+
+                nozzleDynamicContent.Children.Add(grid);
+            }
+        }
+
+        private Label CreateHeaderLabel(string content, int column)
+        {
+            Label headerLabel = new Label
+            {
+                Content = content,
+                FontWeight = FontWeights.Bold,
+                HorizontalAlignment = HorizontalAlignment.Center
+            };
+            Grid.SetColumn(headerLabel, column);
+            return headerLabel;
+        }
+
+
+
+
+
+
+
+
     }
 }
