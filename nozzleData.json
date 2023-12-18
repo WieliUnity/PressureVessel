@@ -1,0 +1,9 @@
+{
+  "weights": [
+    {"NozzleSize": "DN15", "FlangeClass": "PN10", "Weight": 5},
+    {"NozzleSize": "DN15", "FlangeClass": "PN16", "Weight": 6},
+    {"NozzleSize": "DN20", "FlangeClass": "PN10", "Weight": 7},
+    {"NozzleSize": "DN20", "FlangeClass": "PN16", "Weight": 8},
+    {"NozzleSize": "DN50", "FlangeClass": "600#", "Weight": 20}
+  ]
+}

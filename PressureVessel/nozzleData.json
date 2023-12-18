@@ -1,0 +1,53 @@
+[
+  {
+    "NozzleSize": "DN15",
+    "FlangeClass": "PN10",
+    "Weight": 5,
+    "WeightWithBlind": 12,
+    "WeightWithAll": 15,
+    "Hours": 1,
+    "HoursWithBlind": 2,
+    "HoursWithAll": 3
+
+  },
+  {
+    "NozzleSize": "DN15",
+    "FlangeClass": "PN16",
+    "Weight": 6,
+    "WeightWithBlind": 14,
+    "WeightWithAll": 17,
+    "Hours": 2,
+    "HoursWithBlind": 3,
+    "HoursWithAll": 4
+  },
+  {
+    "NozzleSize": "DN20",
+    "FlangeClass": "PN10",
+    "Weight": 7,
+    "WeightWithBlind": 16,
+    "WeightWithAll": 19,
+    "Hours": 3,
+    "HoursWithBlind": 4,
+    "HoursWithAll": 5
+  },
+  {
+    "NozzleSize": "DN20",
+    "FlangeClass": "PN16",
+    "Weight": 8,
+    "WeightWithBlind": 18,
+    "WeightWithAll": 21,
+    "Hours": 4,
+    "HoursWithBlind": 5,
+    "HoursWithAll": 6
+  },
+  {
+    "NozzleSize": "DN50",
+    "FlangeClass": "600#",
+    "Weight": 20,
+    "WeightWithBlind": 20,
+    "WeightWithAll": 23,
+    "Hours": 5,
+    "HoursWithBlind": 6,
+    "HoursWithAll": 7
+  }
+]

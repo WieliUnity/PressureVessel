@@ -204,7 +204,7 @@ namespace PressureVessel {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/PressureVessel;component/pressurevesselcontrol.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/PressureVessel;V1.0.0.0;component/pressurevesselcontrol.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\PressureVesselControl.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

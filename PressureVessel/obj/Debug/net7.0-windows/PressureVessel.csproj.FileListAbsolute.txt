@@ -23,3 +23,4 @@ C:\Users\magnu\source\repos\PressureVessel\PressureVessel\bin\Debug\net7.0-windo
 C:\Users\magnu\source\repos\PressureVessel\PressureVessel\bin\Debug\net7.0-windows\Newtonsoft.Json.dll
 C:\Users\magnu\source\repos\PressureVessel\PressureVessel\obj\Debug\net7.0-windows\PressureVessel.csproj.AssemblyReference.cache
 C:\Users\magnu\source\repos\PressureVessel\PressureVessel\obj\Debug\net7.0-windows\PressureVessel.csproj.CopyComplete
+C:\Users\magnu\source\repos\PressureVessel\PressureVessel\bin\Debug\net7.0-windows\nozzleData.json
