@@ -165,6 +165,9 @@ namespace PressureVessel
             headerGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
             headerGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
             headerGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+            headerGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+            headerGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+            headerGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
 
             // Add header labels
             headerGrid.Children.Add(CreateHeaderLabel("Nozzle Type", 0));
@@ -175,20 +178,26 @@ namespace PressureVessel
             headerGrid.Children.Add(CreateHeaderLabel("Price Pipe + Flange", 5));
             headerGrid.Children.Add(CreateHeaderLabel("Blindflange?", 6));
             headerGrid.Children.Add(CreateHeaderLabel("Davit?", 7));
-            headerGrid.Children.Add(CreateHeaderLabel("Hours", 8));
+            headerGrid.Children.Add(CreateHeaderLabel("Weld Hours", 8));
             headerGrid.Children.Add(CreateHeaderLabel("Cost", 9));
             headerGrid.Children.Add(CreateHeaderLabel("Weight", 10));
+            headerGrid.Children.Add(CreateHeaderLabel("Build Hours", 11));
+            headerGrid.Children.Add(CreateHeaderLabel("Amount Of Bolts", 12));
+            headerGrid.Children.Add(CreateHeaderLabel("Size Of Bolts", 13));
 
             // Add the header grid to the stack panel
             nozzleDynamicContent.Children.Add(headerGrid);
 
-            var nozzleSizes = new List<string> { "DN15", "DN20", "DN25", "DN32", "DN40", "DN50", "DN80", "DN100", "DN125", "DN150" };
+            var nozzleSizes = new List<string> { "DN15", "DN20", "DN25", "DN32", "DN40", "DN50", "DN65", "DN80", "DN100", "DN150", "DN200", "DN250", "DN300", "DN350", "DN400", "DN450", "DN500", "DN600" };
             var flangeClasses = new List<string> { "PN10", "PN16", "PN40", "150#", "300#", "600#" };
 
             for (int i = 1; i <= amount; i++)
             {
                 Grid grid = new Grid();
                 grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Auto) });
+                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
                 grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
                 grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
                 grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
@@ -227,6 +236,7 @@ namespace PressureVessel
                 grid.Children.Add(cmbFlangeClass);
 
                 TextBox txtPrice = new TextBox { Name = $"txtPrice{i}" };
+                txtPrice.TextChanged += ControlValueChanged;
                 Grid.SetColumn(txtPrice, 5);
                 grid.Children.Add(txtPrice);
 
@@ -240,9 +250,9 @@ namespace PressureVessel
                 Grid.SetColumn(chkDavit, 7);
                 grid.Children.Add(chkDavit);
 
-                TextBox txtHours = new TextBox { Name = $"txtHours{i}", IsReadOnly = true };
-                Grid.SetColumn(txtHours, 8);
-                grid.Children.Add(txtHours);
+                TextBox txtWeldHours = new TextBox { Name = $"txtWeldHours{i}", IsReadOnly = true };
+                Grid.SetColumn(txtWeldHours, 8);
+                grid.Children.Add(txtWeldHours);
 
                 TextBox txtCost = new TextBox { Name = $"txtCost{i}", IsReadOnly = true };
                 Grid.SetColumn(txtCost, 9);
@@ -251,6 +261,18 @@ namespace PressureVessel
                 TextBox txtWeight = new TextBox { Name = $"txtWeight{i}" , IsReadOnly = true};
                 Grid.SetColumn(txtWeight, 10);
                 grid.Children.Add(txtWeight);
+
+                TextBox txtBuildHours = new TextBox { Name = $"txtBuildHours{i}", IsReadOnly = true };
+                Grid.SetColumn(txtBuildHours, 11);
+                grid.Children.Add(txtBuildHours);
+                
+                TextBox txtAmountBolts = new TextBox { Name = $"txtAmountBolts{i}", IsReadOnly = true };
+                Grid.SetColumn(txtAmountBolts, 12);
+                grid.Children.Add(txtAmountBolts);
+                
+                TextBox txtSizeBolts = new TextBox { Name = $"txtSizeBolts{i}", IsReadOnly = true };
+                Grid.SetColumn(txtSizeBolts, 13);
+                grid.Children.Add(txtSizeBolts);
 
 
                 nozzleDynamicContent.Children.Add(grid);
@@ -280,7 +302,7 @@ namespace PressureVessel
                 if (parentGrid == null) return;
 
                 // Initialize variables to hold the found controls
-                TextBox txtAmount = null, txtLengthNozzle = null, txtPrice = null, txtHours = null, txtCost = null, txtWeight = null;
+                TextBox txtAmount = null, txtLengthNozzle = null, txtPrice = null, txtWeldHours = null, txtCost = null, txtWeight = null, txtBuildHours = null, txtAmountBolts = null, txtSizeBolts = null;
                 ComboBox cmbNozzleSize = null, cmbFlangeClass = null;
                 CheckBox chkBlind = null, chkDavit = null;
 
@@ -292,10 +314,13 @@ namespace PressureVessel
                         if (textBox.Name == $"txtAmountofSize{index}") txtAmount = textBox;
                         else if (textBox.Name == $"txtLenghtNozzle{index}") txtLengthNozzle = textBox;
                         else if (textBox.Name == $"txtPrice{index}") txtPrice = textBox;
-                        else if (textBox.Name == $"txtHours{index}") txtHours = textBox;
+                        else if (textBox.Name == $"txtWeldHours{index}") txtWeldHours = textBox;
                         else if (textBox.Name == $"txtCost{index}") txtCost = textBox;
                         else if (textBox.Name == $"txtWeight{index}") txtWeight = textBox;
-                        
+                        else if (textBox.Name == $"txtBuildHours{index}") txtBuildHours = textBox;
+                        else if (textBox.Name == $"txtAmountBolts{index}") txtAmountBolts = textBox;
+                        else if (textBox.Name == $"txtSizeBolts{index}") txtSizeBolts = textBox;
+
                     }
                     else if (child is ComboBox comboBox)
                     {
@@ -310,7 +335,7 @@ namespace PressureVessel
                 }
 
                 // Now you can use these controls as before
-                UpdateWeight(cmbNozzleSize, cmbFlangeClass, txtWeight, txtAmount,chkBlind, chkDavit, txtHours);
+                UpdateWeight(cmbNozzleSize, cmbFlangeClass, txtWeight, txtAmount,chkBlind, chkDavit, txtWeldHours, txtBuildHours, txtAmountBolts, txtSizeBolts, txtCost, txtPrice);
 
                 // Add your logic for other calculations, if needed
                 // UpdateHoursAndCost(txtAmount, txtLengthNozzle, txtPrice, txtHours, txtCost, chkBlind, chkDavit);
@@ -319,7 +344,7 @@ namespace PressureVessel
 
 
 
-        private void UpdateWeight(ComboBox cmbNozzleSize, ComboBox cmbFlangeClass, TextBox txtWeight, TextBox txtAmount, CheckBox chkBlind, CheckBox chkDavit, TextBox txtHours)
+        private void UpdateWeight(ComboBox cmbNozzleSize, ComboBox cmbFlangeClass, TextBox txtWeight, TextBox txtAmount, CheckBox chkBlind, CheckBox chkDavit, TextBox txtWeldHours, TextBox txtBuildHours, TextBox txtAmountBolts, TextBox txtSizeBolts, TextBox txtCost, TextBox txtPrice)
         {
             if (cmbNozzleSize != null && cmbFlangeClass != null && txtWeight != null && txtAmount != null)
             {
@@ -329,31 +354,57 @@ namespace PressureVessel
                 bool hasBlind = chkBlind.IsChecked.HasValue && chkBlind.IsChecked.Value;
 
                 double? weight;
-                double? hours;
+                double? weldHours;
+                double? buildHours;
+                int? numberBolts;
+                string? sizeBolts;
+                double.TryParse(txtWeldCostPerHour.Text, out double weldCostPerHour);
+                double.TryParse(txtPrice.Text, out double pricePerFlange);
                 if (!string.IsNullOrEmpty(nozzleSize) && !string.IsNullOrEmpty(flangeClass) && double.TryParse(txtAmount.Text, out double amount))
                 {
                     if (hasBlind && hasDavit)
                     {
                         //weight = _nozzleDataLoader.GetWeightAndHoursWithAll(nozzleSize, flangeClass);
-                        (weight, hours) = _nozzleDataLoader.GetWeightAndHoursWithAll(nozzleSize, flangeClass);
+                        (weight, weldHours,buildHours,numberBolts,sizeBolts) = _nozzleDataLoader.GetWeightAndHoursWithAll(nozzleSize, flangeClass);
                     }
                     else if (hasBlind)
                     {
                         //weight = _nozzleDataLoader.GetWeightAndHoursWithBlind(nozzleSize, flangeClass);
-                        (weight, hours) = _nozzleDataLoader.GetWeightAndHoursWithBlind(nozzleSize, flangeClass);
+                        (weight, weldHours, buildHours, numberBolts, sizeBolts) = _nozzleDataLoader.GetWeightAndHoursWithBlind(nozzleSize, flangeClass);
                     }
                     else
                     {
                         //weight = _nozzleDataLoader.GetWeightAndHours(nozzleSize, flangeClass);
-                         (weight, hours) = _nozzleDataLoader.GetWeightAndHours(nozzleSize, flangeClass);
+                        (weight, weldHours, buildHours, numberBolts, sizeBolts) = _nozzleDataLoader.GetWeightAndHours(nozzleSize, flangeClass);
                     }
 
-                    if (weight.HasValue && hours.HasValue)
+                    if (weight.HasValue && weldHours.HasValue && buildHours.HasValue)
                     {
-                        double totalHours = hours.Value * amount;
+                        double totalWeldHours = weldHours.Value * amount;
                         double totalWeight = weight.Value * amount;
+                        double totalBuildHours = buildHours.Value * amount;
+                        double totalCost = (((totalWeldHours + totalBuildHours) * weldCostPerHour) + pricePerFlange) * amount;
+
                         txtWeight.Text = totalWeight.ToString("N2");
-                        txtHours.Text = totalHours.ToString("N2");
+                        txtWeldHours.Text = totalWeldHours.ToString("N2");
+                        txtBuildHours.Text = totalBuildHours.ToString("N2");
+                        txtCost.Text = totalCost.ToString("N2");
+
+
+                        if (hasBlind)
+                        {
+                            int totalNumberBolts = numberBolts.Value * (int)amount;
+                            txtAmountBolts.Text = totalNumberBolts.ToString();
+                            txtSizeBolts.Text = sizeBolts.ToString();
+                        }
+                        else
+                        {
+                            txtAmountBolts.Text = "N/A";
+                            txtSizeBolts.Text = "N/A";
+                        }
+
+                        
+                        
 
                     }
                     else
@@ -367,22 +418,6 @@ namespace PressureVessel
                 }
             }
         }
-
-
-
-        // Example method for updating hours and cost (implement your own logic)
-        private void UpdateHoursAndCost(TextBox txtAmount, TextBox txtLengthNozzle, TextBox txtPrice, TextBox txtHours, TextBox txtCost, CheckBox chkBlind, CheckBox chkDavit)
-        {
-            // Implement your logic to calculate hours and cost
-            // Update txtHours and txtCost based on the calculations
-        }
-
-
-
-
-
-
-
 
 
     }

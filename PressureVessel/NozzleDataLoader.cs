@@ -13,9 +13,14 @@ namespace PressureVessel
         public double Weight { get; set; }
         public double WeightWithAll { get; set; }
         public double WeightWithBlind { get; set; }
-        public double Hours { get; set; }
-        public double HoursWithAll { get; set; }
-        public double HoursWithBlind { get; set; }
+        public double BuildHours { get; set; }
+        public double BuildHoursWithAll { get; set; }
+        public double BuildHoursWithBlind { get; set; }
+        public double WeldHours { get; set; }
+        public double WeldHoursWithAll { get; set; }
+        public double WeldHoursWithBlind { get; set; }
+        public int NumberBolts { get; set; }
+        public string SizeBolts { get; set; }
     }
 
     public class NozzleDataLoader
@@ -34,26 +39,26 @@ namespace PressureVessel
             
         }
 
-        public (double? Weight, double? Hours) GetWeightAndHours(string nozzleSize, string flangeClass)
+        public (double? Weight, double? WeldHours, double? BuildHours, int? NumberBolts, string? SizeBolts) GetWeightAndHours(string nozzleSize, string flangeClass)
         {
             //return _weights.FirstOrDefault(n => n.NozzleSize == nozzleSize && n.FlangeClass == flangeClass)?.Weight;
             var data = _weights.FirstOrDefault(n => n.NozzleSize == nozzleSize && n.FlangeClass == flangeClass);
-            return (data?.Weight, data?.Hours);
+            return (data?.Weight, data?.WeldHours, data?.BuildHours, data?.NumberBolts, data?.SizeBolts);
 
         }
 
-        public (double? Weight, double? Hours) GetWeightAndHoursWithAll(string nozzleSize, string flangeClass)
+        public (double? WeightWithAll, double? WeldHoursWithAll, double? BuildHoursWithAll, int? NumberBolts, string? SizeBolts) GetWeightAndHoursWithAll(string nozzleSize, string flangeClass)
         {
             //return _weights.FirstOrDefault(n => n.NozzleSize == nozzleSize && n.FlangeClass == flangeClass)?.WeightWithAll;
             var data = _weights.FirstOrDefault(n => n.NozzleSize == nozzleSize && n.FlangeClass == flangeClass);
-            return (data?.WeightWithAll, data?.HoursWithAll);
+            return (data?.WeightWithAll, data?.WeldHoursWithAll, data?.BuildHoursWithAll, data?.NumberBolts, data?.SizeBolts);
         }
 
-        public (double? Weight, double? Hours) GetWeightAndHoursWithBlind(string nozzleSize, string flangeClass)
+        public (double? WeightWithBlind, double? WeldHoursWithBlind, double? BuildHoursWithBlind, int? NumberBolts, string? SizeBolts) GetWeightAndHoursWithBlind(string nozzleSize, string flangeClass)
         {
             //return _weights.FirstOrDefault(n => n.NozzleSize == nozzleSize && n.FlangeClass == flangeClass)?.WeightWithBlind;
             var data = _weights.FirstOrDefault(n => n.NozzleSize == nozzleSize && n.FlangeClass == flangeClass);
-            return (data?.WeightWithBlind, data?.HoursWithBlind);
+            return (data?.WeightWithBlind, data?.WeldHoursWithBlind, data?.BuildHoursWithBlind, data?.NumberBolts, data?.SizeBolts);
         }
     }
 }
