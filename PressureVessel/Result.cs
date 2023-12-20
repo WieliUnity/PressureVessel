@@ -8,7 +8,8 @@ namespace PressureVessel
 {
     public class Result
     {
-        public string SheetSize { get; set; }
+       
+        public string? SheetSize { get; set; }
         public double TotalCost { get; set; }
         public int SheetsNeeded { get; set; }
         public double TotalWeldLength { get; set; }
