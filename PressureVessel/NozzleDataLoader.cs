@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Windows;
 using System.Windows.Media.Converters;
 
 namespace PressureVessel
 {
+
+    
     public class NozzleData
     {
-        public string NozzleSize { get; set; }
-        public string FlangeClass { get; set; }
+        public string? NozzleSize { get; set; }
+        public string? FlangeClass { get; set; }
         public double Weight { get; set; }
         public double WeightWithAll { get; set; }
         public double WeightWithBlind { get; set; }
@@ -20,12 +23,13 @@ namespace PressureVessel
         public double WeldHoursWithAll { get; set; }
         public double WeldHoursWithBlind { get; set; }
         public int NumberBolts { get; set; }
-        public string SizeBolts { get; set; }
+        public string? SizeBolts { get; set; }
+
     }
 
     public class NozzleDataLoader
     {
-        private List<NozzleData> _weights;
+        private List<NozzleData> _weights = new List<NozzleData>();
 
         public NozzleDataLoader()
         {
@@ -35,7 +39,17 @@ namespace PressureVessel
         private void LoadData()
         {
             string json = File.ReadAllText("nozzleData.json");
-            _weights = JsonConvert.DeserializeObject<List<NozzleData>>(json);
+            //_weights = JsonConvert.DeserializeObject<List<NozzleData>>(json);
+
+            var deserializedObject = JsonConvert.DeserializeObject<List<NozzleData>>(json);
+            if (deserializedObject != null)
+            {
+                _weights = deserializedObject;
+            }
+            else
+            {
+                MessageBox.Show("Weight is null");
+            }
             
         }
 
