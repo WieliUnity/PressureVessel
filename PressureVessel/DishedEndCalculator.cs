@@ -141,9 +141,16 @@ public class DishedEndCalculator
         double flatArea = (radius * radius * Math.PI) / 1000000;
         double amountPlates = Math.Ceiling(flatArea / 4.5);
         double weldMeters = (amountPlates * 3.9) - 3.8;
-        double weldPerMeter = (thickness / 3.0) * 0.8;
+        double weldPerMeter = (thickness / 4.0) * 0.8;
         double weldHours = weldMeters * weldPerMeter;
-        double buildHours = weldMeters * 0.3;
+        double bevelsHoursPerMeter = (thickness / 4.0) * 0.2;
+        double bevelHours = weldMeters * bevelsHoursPerMeter;
+        double cuttingMeters = ((radius/1000)/2) *Math.PI;
+        double cuttingMetersPerHour = (thickness / 4.0) * 0.4;
+        double cuttingHours = cuttingMeters *cuttingMetersPerHour;
+        double buildingHours = weldMeters * 0.4;
+
+        double buildHours = bevelHours + buildingHours + cuttingHours;
 
         return (weldHours, buildHours);
 
@@ -157,12 +164,16 @@ public class DishedEndCalculator
         double flatArea = (slantHeight * slantHeight * Math.PI)/1000000;
         double amountPlates = Math.Ceiling(flatArea / 4.5);
         double weldMeters = ((amountPlates * 3.9) - 3.8) + (slantHeight/1000);
-        double weldPerMeter = (thickness / 3.0) * 0.8;
+        double weldPerMeter = (thickness / 4.0) * 0.8;
         double weldHours = weldMeters * weldPerMeter;
-        double bevelHours = weldMeters * 0.3;
-        double buildingHours = weldMeters * 0.5;
+        double bevelsHoursPerMeter = (thickness / 4.0) * 0.2;
+        double bevelHours = weldMeters * bevelsHoursPerMeter;
+        double buildingHours = weldMeters * 0.4;
+        double cuttingMeters = ((radius / 1000) / 2) * Math.PI;
+        double cuttingMetersPerHour = (thickness / 4.0) * 0.4;
+        double cuttingHours = cuttingMeters * cuttingMetersPerHour;
 
-        double buildHours = bevelHours + buildingHours;
+        double buildHours = bevelHours + buildingHours + cuttingHours;
 
         return (weldHours, buildHours);
 

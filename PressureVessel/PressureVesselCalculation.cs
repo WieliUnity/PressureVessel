@@ -12,6 +12,7 @@ namespace PressureVessel
         public double CostPerKg { get; set; }
         public double WeldCostPerHour { get; set; }
         public double WeldTimePerMeter => CalculateWeldTimePerMeter(Thickness);
+        public double BevelingTimePerMeter => CalculateBevelingTimePerMeter(Thickness);
 
         private const double Density = 8000 / 1e9;  // kg/mm^3
         public int connections = 0;
@@ -23,7 +24,12 @@ namespace PressureVessel
 
         private double CalculateWeldTimePerMeter(double thickness)
         {
-            return (thickness / 3.0) * 0.8;
+            return (thickness / 4.0) * 0.8;
+        }
+
+        private double CalculateBevelingTimePerMeter(double thickness)
+        {
+            return (Thickness / 4.0) * 0.2;
         }
 
         public List<Result> CalculateCosts()
@@ -148,7 +154,7 @@ namespace PressureVessel
 
 
             // Assuming you have a formula for beveling hours and cost
-            double bevelingHours = totalWeldLength * 0.3; // This is an example, replace with your actual formula
+            double bevelingHours = BevelingTimePerMeter * totalWeldLength; // This is an example, replace with your actual formula
             double bevelingCost = bevelingHours * WeldCostPerHour;
 
             double totalCost = materialCost + weldCost + bendingCost + bevelCost + connectionCost;
@@ -164,6 +170,8 @@ namespace PressureVessel
             double additionalBendingTime = 0.7 + (plateWidth / 1000 - 1) * 0.3; // Additional time based on plate width
             return startHourPerPlate + additionalBendingTime;
         }
+
+
 
     }
 }

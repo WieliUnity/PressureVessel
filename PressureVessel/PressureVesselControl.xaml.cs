@@ -419,9 +419,20 @@ namespace PressureVessel
             }
         }
 
-
-
+        
         private void CmbEnd_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            CalculateAndUpdateResults();
+        }
+
+        private void txtCalculatedThickness_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            CalculateAndUpdateResults();
+        }
+
+
+        //private void CmbEnd_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void CalculateAndUpdateResults()
         {
             // Check if both combo boxes have selected items
             if (cmbTopEnd.SelectedItem == null || cmbBottomEnd.SelectedItem == null)
@@ -445,6 +456,9 @@ namespace PressureVessel
                 // Update UI or perform other actions with topEndResult
                 txtVolumeTopEnd.Text = topEndResult.Volume.ToString("N2");
                 txtWeightTopEnd.Text = topEndResult.Weight.ToString("N2");
+                txtTopEndWeldHours.Text = topEndResult.WeldHours.ToString("N2");
+                txtTopEndBuildHours.Text = topEndResult.BuildHours.ToString("N2");
+                
             }
 
             if (cmbBottomEnd.SelectedItem is ComboBoxItem bottomEndSelectedItem)
@@ -455,6 +469,8 @@ namespace PressureVessel
                 // Update UI or perform other actions with bottomEndResult
                 txtVolumeBottomEnd.Text = bottomEndResult.Volume.ToString("N2");
                 txtWeightBottomEnd.Text = bottomEndResult.Weight.ToString("N2");
+                txtBottomEndWeldHours.Text = bottomEndResult.WeldHours.ToString("N2");
+                txtBottomEndBuildHours.Text = bottomEndResult.BuildHours.ToString("N2");
             }
         }
 
