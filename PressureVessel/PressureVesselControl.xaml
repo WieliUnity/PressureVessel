@@ -27,31 +27,31 @@
 
                 <!-- Diameter -->
                 <Label Content="Diameter (mm)" Grid.Row="0" Grid.ColumnSpan="4" Margin="0,0,0,26" Grid.RowSpan="2"/>
-                <TextBox x:Name="txtDiameter" Grid.Row="0" Margin="43,0,0,26" Grid.Column="2" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
+                <TextBox x:Name="txtDiameter" Grid.Row="0" Margin="43,0,0,26" Grid.Column="2" Grid.RowSpan="2" Grid.ColumnSpan="2" Text="1000"/>
 
                 <!-- Height -->
                 <Label Content="Height (mm)" Grid.Row="1" Grid.ColumnSpan="4" Margin="0,0,0,4"/>
-                <TextBox x:Name="txtHeight" Grid.Row="1" Margin="43,0,0,4" Grid.Column="2" Grid.ColumnSpan="2"/>
+                <TextBox x:Name="txtHeight" Grid.Row="1" Margin="43,0,0,4" Grid.Column="2" Grid.ColumnSpan="2" Text="2000"/>
 
                 <!-- Design Pressure -->
                 <Label Content="Design Pressure (bar)" Grid.Row="1" Grid.ColumnSpan="4" Margin="0,30,0,7" Grid.RowSpan="2"/>
-                <TextBox x:Name="txtDesignPressure" Grid.Row="1" Margin="43,30,0,7" Grid.Column="2" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
+                <TextBox x:Name="txtDesignPressure" Grid.Row="1" Margin="43,30,0,7" Grid.Column="2" Grid.RowSpan="2" Grid.ColumnSpan="2" Text="10"/>
 
                 <!-- Temperature -->
                 <Label Content="Temperature (°C)" Grid.Row="2" Grid.ColumnSpan="4" Margin="0,13,0,26" Grid.RowSpan="3"/>
-                <TextBox x:Name="txtTemperature" Grid.Row="2" Margin="43,13,0,26" Grid.Column="2" Grid.RowSpan="3" Grid.ColumnSpan="2"/>
+                <TextBox x:Name="txtTemperature" Grid.Row="2" Margin="43,13,0,26" Grid.Column="2" Grid.RowSpan="3" Grid.ColumnSpan="2" Text="100"/>
 
                 <!-- Corrosion Allowance -->
                 <Label Content="Corrosion Allowance (mm)" Grid.Row="4" Grid.ColumnSpan="4" Margin="0,0,0,26" Grid.RowSpan="2"/>
-                <TextBox x:Name="txtCorrosionAllowance" Grid.Row="4" Margin="43,0,0,26" Grid.Column="2" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
+                <TextBox x:Name="txtCorrosionAllowance" Grid.Row="4" Margin="43,0,0,26" Grid.Column="2" Grid.RowSpan="2" Grid.ColumnSpan="2" Text="0"/>
 
                 <!-- Extra Thickness -->
                 <Label Content="Extra Thickness (mm)" Grid.Row="5" Grid.ColumnSpan="4" Margin="0,1,0,26" Grid.RowSpan="2"/>
-                <TextBox x:Name="txtExtraThickness" Grid.Row="5" Margin="43,1,0,26" Grid.Column="2" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
+                <TextBox x:Name="txtExtraThickness" Grid.Row="5" Margin="43,1,0,26" Grid.Column="2" Grid.RowSpan="2" Grid.ColumnSpan="2" Text="0"/>
 
                 <!-- Material -->
                 <Label Content="Material" Grid.Row="6" Grid.ColumnSpan="4" Margin="0,0,0,8"/>
-                <ComboBox x:Name="cmbMaterial" Grid.Row="6" Margin="43,0,0,8" Grid.Column="2" Grid.ColumnSpan="2">
+                <ComboBox x:Name="cmbMaterial" Grid.Row="6" Margin="43,0,0,8" Grid.Column="2" Grid.ColumnSpan="2" SelectedIndex="1">
                     <ComboBoxItem Content="P265GH"/>
                     <ComboBoxItem Content="1.4301"/>
                     <ComboBoxItem Content="1.4307"/>
@@ -122,7 +122,7 @@
                             <ColumnDefinition Width="509*"/>
                         </Grid.ColumnDefinitions>
                         <Label Content="Cost per Kg (SEK)" Grid.Column="0" VerticalAlignment="Center"/>
-                        <TextBox x:Name="txtCostPerKg" Grid.Column="1" Grid.ColumnSpan="2"/>
+                        <TextBox x:Name="txtCostPerKg" Grid.Column="1" Grid.ColumnSpan="2" Text="55"/>
                     </Grid>
 
                     <Grid>
@@ -131,7 +131,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Label Content="Weld Cost per Hour (SEK)" Grid.Column="0" VerticalAlignment="Center"/>
-                        <TextBox x:Name="txtWeldCostPerHour" Grid.Column="1"/>
+                        <TextBox x:Name="txtWeldCostPerHour" Grid.Column="1" Text="600"/>
                     </Grid>
 
 

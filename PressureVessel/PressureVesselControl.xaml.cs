@@ -443,6 +443,8 @@ namespace PressureVessel
                 DishedEndCalculator calculator = new DishedEndCalculator();
                 var topEndResult = calculator.Calculate(topEndSelection, diameter, thickness, topEndPrice);
                 // Update UI or perform other actions with topEndResult
+                txtVolumeTopEnd.Text = topEndResult.Volume.ToString("N2");
+                txtWeightTopEnd.Text = topEndResult.Weight.ToString("N2");
             }
 
             if (cmbBottomEnd.SelectedItem is ComboBoxItem bottomEndSelectedItem)
@@ -451,6 +453,8 @@ namespace PressureVessel
                 DishedEndCalculator calculator = new DishedEndCalculator();
                 var bottomEndResult = calculator.Calculate(bottomEndSelection, diameter, thickness, bottomEndPrice);
                 // Update UI or perform other actions with bottomEndResult
+                txtVolumeBottomEnd.Text = bottomEndResult.Volume.ToString("N2");
+                txtWeightBottomEnd.Text = bottomEndResult.Weight.ToString("N2");
             }
         }
 
