@@ -173,8 +173,54 @@
         </TabItem>
 
         <TabItem Header="Dished Ends">
-            <!-- Content for Start tab -->
+            <StackPanel>
+                <!-- Row for Top End -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" MinWidth="80"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Content="Top End" Grid.Column="0"/>
+                    <ComboBox Name="cmbTopEnd" Grid.Column="1" SelectionChanged="CmbEnd_SelectionChanged">
+                        <ComboBoxItem Content="SMS482"/>
+                        <ComboBoxItem Content="DIN28011"/>
+                        <ComboBoxItem Content="Cone"/>
+                    </ComboBox>
+                    <TextBox Name="txtTopEndCapPrice" Grid.Column="4" Width="100" Text="Enter Price"/>
+                    <TextBox Name="txtVolumeTopEnd" Grid.Column="2" Width="100" Text="Volume"/>
+                    <TextBox Name="txtWeightTopEnd" Grid.Column="3" Width="100" Text="Weight"/>
+                    
+                </Grid>
+
+                <!-- Row for Bottom End -->
+                <Grid Margin="0,10,0,0">
+                    <!-- Add margin for spacing between rows -->
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" MinWidth="80"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Content="Bottom End" Grid.Column="0"/>
+                    <ComboBox Name="cmbBottomEnd" Grid.Column="1" SelectionChanged="CmbEnd_SelectionChanged">
+                        <ComboBoxItem Content="SMS482"/>
+                        <ComboBoxItem Content="DIN28011"/>
+                        <ComboBoxItem Content="Flat"/>
+                    </ComboBox>
+                    <TextBox Name="txtBottomEndCapPrice" Grid.Column="4" Width="100" Text="Enter Price"/>
+                    <TextBox Name="txtVolumeBottomEnd" Grid.Column="2" Width="100" Text="Volume"/>
+                    <TextBox Name="txtWeightBottomEnd" Grid.Column="3" Width="100" Text="Weight"/>
+                    
+                </Grid>
+            </StackPanel>
         </TabItem>
+
         <TabItem Header="Control/Testing">
             <!-- Content for Start tab -->
         </TabItem>

@@ -420,5 +420,41 @@ namespace PressureVessel
         }
 
 
+
+        private void CmbEnd_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // Check if both combo boxes have selected items
+            if (cmbTopEnd.SelectedItem == null || cmbBottomEnd.SelectedItem == null)
+                return;
+
+            // Assuming methods to get diameter and thickness from another tab
+            double diameter = double.Parse(txtDiameter.Text);
+            double thickness = int.Parse(txtCalculatedThickness.Text);
+
+            // Get the price for Top End, default to 0 if not provided
+            double.TryParse(txtTopEndCapPrice.Text, out double topEndPrice);
+
+            // Get the price for Bottom End, default to 0 if not provided
+            double.TryParse(txtBottomEndCapPrice.Text, out double bottomEndPrice);
+
+            if (cmbTopEnd.SelectedItem is ComboBoxItem topEndSelectedItem)
+            {
+                string topEndSelection = topEndSelectedItem.Content.ToString();
+                DishedEndCalculator calculator = new DishedEndCalculator();
+                var topEndResult = calculator.Calculate(topEndSelection, diameter, thickness, topEndPrice);
+                // Update UI or perform other actions with topEndResult
+            }
+
+            if (cmbBottomEnd.SelectedItem is ComboBoxItem bottomEndSelectedItem)
+            {
+                string bottomEndSelection = bottomEndSelectedItem.Content.ToString();
+                DishedEndCalculator calculator = new DishedEndCalculator();
+                var bottomEndResult = calculator.Calculate(bottomEndSelection, diameter, thickness, bottomEndPrice);
+                // Update UI or perform other actions with bottomEndResult
+            }
+        }
+
+
+
     }
 }
