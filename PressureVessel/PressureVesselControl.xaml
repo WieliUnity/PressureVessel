@@ -188,6 +188,7 @@
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
 
                         <TextBlock Text="Typ" Grid.Column="1" FontWeight="Bold" TextAlignment="Center"/>
@@ -196,6 +197,7 @@
                         <TextBlock Text="Vikt (kg)" Grid.Column="4" FontWeight="Bold" Width="100" TextAlignment="Center"/>
                         <TextBlock Text="Svets Timmar" Grid.Column="5" FontWeight="Bold" Width="100" TextAlignment="Center"/>
                         <TextBlock Text="Bygg Timmar" Grid.Column="6" FontWeight="Bold" Width="100" TextAlignment="Center"/>
+                        <TextBlock Text="Ny Tjocklek" Grid.Column="7" FontWeight="Bold" Width="100" TextAlignment="Center"/>
                     </Grid>
 
                     <!-- Row for Top End -->
@@ -203,6 +205,7 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" MinWidth="100"/>
                             <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="Auto"/>
@@ -221,6 +224,7 @@
                         <TextBox x:Name="txtWeightTopEnd" Grid.Column="4" Width="100"/>
                         <TextBox x:Name="txtTopEndWeldHours" Grid.Column="5" Width="100"/>
                         <TextBox x:Name="txtTopEndBuildHours" Grid.Column="6" Width="100"/>
+                        <TextBox x:Name="txtNewTopEndThickness" Grid.Column="7" Width="100"/>
                     </Grid>
 
                     <!-- Row for Bottom End -->
@@ -228,6 +232,7 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" MinWidth="100"/>
                             <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="Auto"/>
@@ -246,6 +251,7 @@
                         <TextBox x:Name="txtWeightBottomEnd" Grid.Column="4" Width="100"/>
                         <TextBox x:Name="txtBottomEndWeldHours" Grid.Column="5" Width="100"/>
                         <TextBox x:Name="txtBottomEndBuildHours" Grid.Column="6" Width="100"/>
+                        <TextBox x:Name="txtNewBottomEndThickness" Grid.Column="7" Width="100"/>
                     </Grid>
 
                 </StackPanel>
@@ -254,8 +260,91 @@
 
 
         <TabItem Header="Control/Testing">
-            <!-- Content for Start tab -->
+            <Grid>
+                <!-- Define the rows -->
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <!-- Header row -->
+                    <RowDefinition Height="Auto"/>
+                    <!-- Ritningar row -->
+                    <RowDefinition Height="Auto"/>
+                    <!-- OFP row -->
+                    <RowDefinition Height="Auto"/>
+                    <!-- Provtryckning row -->
+                    <RowDefinition Height="Auto"/>
+                    <!-- Betning row -->
+                    <RowDefinition Height="Auto"/>
+                    <!-- Målning row -->
+                    <RowDefinition Height="Auto"/>
+                    <!-- Beräkningar row -->
+                    <RowDefinition Height="Auto"/>
+                    <!-- 3:dje part row -->
+                </Grid.RowDefinitions>
+
+                <!-- Define the columns -->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <!-- For the labels -->
+                    <ColumnDefinition Width="*"/>
+                    <!-- For the Beräknad Kostnad -->
+                    <ColumnDefinition Width="*"/>
+                    <!-- For the Antal Timmar -->
+                    <ColumnDefinition Width="*"/>
+                    <!-- For the Eget Pris -->
+                </Grid.ColumnDefinitions>
+
+                <!-- Headers -->
+                <Label Content="" Grid.Row="0" Grid.Column="0"/>
+                <Label Content="Beräknad Kostnad" Grid.Row="0" Grid.Column="1"/>
+                <Label Content="Antal Timmar" Grid.Row="0" Grid.Column="2"/>
+                <Label Content="Eget Pris" Grid.Row="0" Grid.Column="3"/>
+
+                <!-- Rows for items -->
+                <!-- Ritningar Row -->
+                <Label Content="Ritningar" Grid.Row="1" Grid.Column="0"/>
+                <TextBox x:Name="txtRitningarCost" Grid.Row="1" Grid.Column="1"/>
+                <TextBox x:Name="txtAmountOfDrawingHours" Grid.Row="1" Grid.Column="2"/>
+                <TextBox x:Name="txtRitningarCostNew" Grid.Row="1" Grid.Column="3"/>
+
+                <!-- OFP Row -->
+                <Label Content="OFP" Grid.Row="2" Grid.Column="0"/>
+                <TextBox x:Name="txtOFPCost" Grid.Row="2" Grid.Column="1"/>
+                <TextBox x:Name="txtAmountOfOFPHours" Grid.Row="2" Grid.Column="2"/>
+                <TextBox x:Name="txtOFPCostNew" Grid.Row="2" Grid.Column="3"/>
+
+                <!-- Provtryckning Row -->
+                <Label Content="Provtryckning" Grid.Row="3" Grid.Column="0"/>
+                <TextBox x:Name="txtProvtryckningCost" Grid.Row="3" Grid.Column="1"/>
+                <TextBox x:Name="txtAmountOfPressureHours" Grid.Row="3" Grid.Column="2"/>
+                <TextBox x:Name="txtProvtryckningCostNew" Grid.Row="3" Grid.Column="3"/>
+
+                <!-- Betning Row -->
+                <Label Content="Betning" Grid.Row="4" Grid.Column="0"/>
+                <TextBox x:Name="txtBetningCost" Grid.Row="4" Grid.Column="1"/>
+                <TextBox x:Name="txtAmountOfPicklingHours" Grid.Row="4" Grid.Column="2"/>
+                <TextBox x:Name="txtBetningCostNew" Grid.Row="4" Grid.Column="3"/>
+
+                <!-- Målning Row -->
+                <Label Content="Målning" Grid.Row="5" Grid.Column="0"/>
+                <TextBox x:Name="txtMålningCost" Grid.Row="5" Grid.Column="1"/>
+                <TextBox x:Name="txtAmountOfPaintingHours" Grid.Row="5" Grid.Column="2"/>
+                <TextBox x:Name="txtMålningCostNew" Grid.Row="5" Grid.Column="3"/>
+
+                <!-- Beräkningar Row -->
+                <Label Content="Beräkningar" Grid.Row="6" Grid.Column="0"/>
+                <TextBox x:Name="txtBeräkningarCost" Grid.Row="6" Grid.Column="1"/>
+                <TextBox x:Name="txtAmountOfCalculationHours" Grid.Row="6" Grid.Column="2"/>
+                <TextBox x:Name="txtBeräkningarCostNew" Grid.Row="6" Grid.Column="3"/>
+
+                <!-- 3:dje part Row -->
+                <Label Content="3:dje part" Grid.Row="7" Grid.Column="0"/>
+                <TextBox x:Name="txtThirdPartyCost" Grid.Row="7" Grid.Column="1"/>
+                <TextBox x:Name="txtAmountOfThirdPartyHours" Grid.Row="7" Grid.Column="2"/>
+                <TextBox x:Name="txtThirdPartyCostNew" Grid.Row="7" Grid.Column="3"/>
+            </Grid>
         </TabItem>
+
+
         <TabItem Header="Misc">
             <!-- Content for Start tab -->
         </TabItem>

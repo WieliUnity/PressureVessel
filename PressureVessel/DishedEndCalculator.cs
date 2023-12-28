@@ -4,6 +4,14 @@ using System.Windows.Media.Media3D;
 
 public class DishedEndCalculator
 {
+    private const double AdjustmentFactor = 50;
+    private const double DensityFactor = 8;
+    private const double ConeVolumeFactor = 1.0 / 3;
+    private const double MillimetersInMeter = 1000;
+    private double CalculateAdjustedDiameter(double diameter)
+{
+    return diameter + (AdjustmentFactor * 2);
+}
     public DishedEndResult Calculate(string selection, double diameter, double thickness, double price)
     {
         switch (selection)
@@ -52,15 +60,15 @@ public class DishedEndCalculator
 
     private DishedEndResult CalculateConeEnd(double diameter, double thickness, double price)
     {
-        double diameter1 = diameter + (50 * 2);
-        double radius = diameter1 / 2;
+        double adjustedDiameter = CalculateAdjustedDiameter(diameter);
+        double radius = adjustedDiameter / 2;
 
 
-        double coneHeight = CalculateConeHeight(diameter1, thickness);
-        double coneArea = CalculateConeArea(coneHeight,diameter1);
+        double coneHeight = CalculateConeHeight(adjustedDiameter, thickness);
+        double coneArea = CalculateConeArea(coneHeight,adjustedDiameter);
 
-        double coneWeight = coneArea * thickness * 8;
-        double coneVolume = (1.0 / 3) * Math.PI * Math.Pow((radius/1000), 2) * coneHeight;
+        double coneWeight = coneArea * thickness * DensityFactor;
+        double coneVolume = ConeVolumeFactor * Math.PI * Math.Pow((radius/MillimetersInMeter), 2) * coneHeight;
 
         (double coneEndWeldHours, double coneEndBuildHours) = CalculateConeEndHours(radius, thickness, coneHeight);
 
@@ -71,16 +79,14 @@ public class DishedEndCalculator
     private DishedEndResult CalculateFlatEnd(double diameter, double thickness, double price)
     {
 
-        double rondelRad = ((diameter + (50 * 2))/2);
+        double radius = CalculateAdjustedDiameter(diameter) / 2;
         double volume = 0;
-        double weight = (rondelRad * rondelRad * Math.PI * thickness * 8)/1000000;
+        double weight = (radius * radius * Math.PI * thickness * 8)/1000000;
         // Placeholder for Flat calculation logic
-        (double flatEndWeldHours, double flatEndBuildHours) = CalculateFlatEndHours(rondelRad, thickness);
+        (double flatEndWeldHours, double flatEndBuildHours) = CalculateFlatEndHours(radius, thickness);
         
         return new DishedEndResult { Volume = volume, Weight = weight, Price = price, WeldHours = flatEndWeldHours, BuildHours = flatEndBuildHours };
     }
-
-
 
     // Placeholder methods for volume and weight calculations
     private double CalculateVolume(double diameter, double thickness)
@@ -100,7 +106,7 @@ public class DishedEndCalculator
         double radiusRondel = rondelDia / 2;
         double area = (radiusRondel * radiusRondel * Math.PI);
         double areainM2 = area / 1000000;
-        double finalWeight = areainM2 * thickness * 8;
+        double finalWeight = areainM2 * thickness * DensityFactor;
         return finalWeight;
     }
 
@@ -145,7 +151,7 @@ public class DishedEndCalculator
         double weldHours = weldMeters * weldPerMeter;
         double bevelsHoursPerMeter = (thickness / 4.0) * 0.2;
         double bevelHours = weldMeters * bevelsHoursPerMeter;
-        double cuttingMeters = ((radius/1000)/2) *Math.PI;
+        double cuttingMeters = ((radius/MillimetersInMeter)/2) *Math.PI;
         double cuttingMetersPerHour = (thickness / 4.0) * 0.4;
         double cuttingHours = cuttingMeters *cuttingMetersPerHour;
         double buildingHours = weldMeters * 0.4;
@@ -163,7 +169,7 @@ public class DishedEndCalculator
 
         double flatArea = (slantHeight * slantHeight * Math.PI)/1000000;
         double amountPlates = Math.Ceiling(flatArea / 4.5);
-        double weldMeters = ((amountPlates * 3.9) - 3.8) + (slantHeight/1000);
+        double weldMeters = ((amountPlates * 3.9) - 3.8) + (slantHeight/MillimetersInMeter);
         double weldPerMeter = (thickness / 4.0) * 0.8;
         double weldHours = weldMeters * weldPerMeter;
         double bevelsHoursPerMeter = (thickness / 4.0) * 0.2;
@@ -178,12 +184,8 @@ public class DishedEndCalculator
         return (weldHours, buildHours);
 
     }
-
-
-
 }
 
-    
 public class DishedEndResult
 {
     public double Volume { get; set; }

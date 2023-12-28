@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using static PressureVessel.ControlCalculations;
 
 namespace PressureVessel
 {
@@ -336,7 +337,7 @@ namespace PressureVessel
 
                 // Now you can use these controls as before
                 UpdateWeight(cmbNozzleSize, cmbFlangeClass, txtWeight, txtAmount,chkBlind, chkDavit, txtWeldHours, txtBuildHours, txtAmountBolts, txtSizeBolts, txtCost, txtPrice);
-
+                
                 // Add your logic for other calculations, if needed
                 // UpdateHoursAndCost(txtAmount, txtLengthNozzle, txtPrice, txtHours, txtCost, chkBlind, chkDavit);
             }
@@ -423,11 +424,13 @@ namespace PressureVessel
         private void CmbEnd_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             CalculateAndUpdateResults();
+            CalculateControlPrices();
         }
 
         private void txtCalculatedThickness_TextChanged(object sender, TextChangedEventArgs e)
         {
             CalculateAndUpdateResults();
+            CalculateControlPrices();
         }
 
 
@@ -442,6 +445,13 @@ namespace PressureVessel
             double diameter = double.Parse(txtDiameter.Text);
             double thickness = int.Parse(txtCalculatedThickness.Text);
 
+            bool newTopThicknessProvided = double.TryParse(txtNewTopEndThickness.Text, out double newTopThickness);
+            bool newBottomThicknessProvided = double.TryParse(txtNewBottomEndThickness.Text, out double newBottomThickness);
+
+            double topEndThickness = newTopThicknessProvided ? newTopThickness : thickness;
+            double bottomEndThickness = newBottomThicknessProvided ? newBottomThickness : thickness;
+
+
             // Get the price for Top End, default to 0 if not provided
             double.TryParse(txtTopEndCapPrice.Text, out double topEndPrice);
 
@@ -452,7 +462,7 @@ namespace PressureVessel
             {
                 string topEndSelection = topEndSelectedItem.Content.ToString();
                 DishedEndCalculator calculator = new DishedEndCalculator();
-                var topEndResult = calculator.Calculate(topEndSelection, diameter, thickness, topEndPrice);
+                var topEndResult = calculator.Calculate(topEndSelection, diameter, topEndThickness, topEndPrice);
                 // Update UI or perform other actions with topEndResult
                 txtVolumeTopEnd.Text = topEndResult.Volume.ToString("N2");
                 txtWeightTopEnd.Text = topEndResult.Weight.ToString("N2");
@@ -465,13 +475,70 @@ namespace PressureVessel
             {
                 string bottomEndSelection = bottomEndSelectedItem.Content.ToString();
                 DishedEndCalculator calculator = new DishedEndCalculator();
-                var bottomEndResult = calculator.Calculate(bottomEndSelection, diameter, thickness, bottomEndPrice);
+                var bottomEndResult = calculator.Calculate(bottomEndSelection, diameter, bottomEndThickness, bottomEndPrice);
                 // Update UI or perform other actions with bottomEndResult
                 txtVolumeBottomEnd.Text = bottomEndResult.Volume.ToString("N2");
                 txtWeightBottomEnd.Text = bottomEndResult.Weight.ToString("N2");
                 txtBottomEndWeldHours.Text = bottomEndResult.WeldHours.ToString("N2");
                 txtBottomEndBuildHours.Text = bottomEndResult.BuildHours.ToString("N2");
             }
+        }
+
+
+        private void CalculateControlPrices()
+        {
+            ControlCalculations calculations = new ControlCalculations();
+            double amountOfNozzles = SumAllTxtAmountValues();
+            double.TryParse(txtVesselHeight.Text, out double vesselHeight);
+            double.TryParse(txtVesselDiameter.Text, out double vesselDiameter);
+            double.TryParse(txtVolumeTopEnd.Text, out double volumeTopEnd);
+            double.TryParse(txtVolumeBottomEnd.Text, out double volumeBottomEnd);
+            double.TryParse(txtWeldCostPerHour.Text, out double weldCostPerHour);
+            
+            double volumeMantlet = ((vesselDiameter/2)/1000) * ((vesselDiameter/2)/1000) * Math.PI * (vesselHeight/1000);
+
+            double calculateTotalVolume = volumeMantlet + volumeBottomEnd + volumeTopEnd;
+
+            CostCalculationResult provtryckningResult = calculations.CalculateProvtryckningCost(amountOfNozzles, calculateTotalVolume, weldCostPerHour);
+
+            // Assuming you have text boxes named following the convention 'txtRitningarCost', 'txtOFPcost', etc.
+            txtRitningarCost.Text = calculations.CalculateRitningarCost(amountOfNozzles).ToString("N2");
+            txtOFPCost.Text = calculations.CalculateOFPcost().ToString("N2");
+            txtProvtryckningCost.Text = provtryckningResult.TotalCost.ToString("N2");
+            txtAmountOfPressureHours.Text = provtryckningResult.TotalBuildHours.ToString("N2");
+            txtBetningCost.Text = calculations.CalculateBetningCost().ToString("N2");
+            txtMålningCost.Text = calculations.CalculateMålningCost().ToString("N2");
+            txtBeräkningarCost.Text = calculations.CalculateBeräkningarCost().ToString("N2");
+            txtThirdPartyCost.Text = calculations.CalculateThirdPartyCost().ToString("N2");
+        }
+
+
+        private double SumAllTxtAmountValues() //Calculate how many nozzles we have totally
+        {
+            double totalAmount = 0;
+
+            // Loop through each child of the nozzleDynamicContent which should be a Grid
+            foreach (UIElement element in nozzleDynamicContent.Children)
+            {
+                if (element is Grid grid)
+                {
+                    // Loop through each child of the grid
+                    foreach (UIElement gridElement in grid.Children)
+                    {
+                        // Check if the element is a TextBox and has a name that starts with "txtAmountofSize"
+                        if (gridElement is TextBox textBox && textBox.Name.StartsWith("txtAmountofSize"))
+                        {
+                            // Try to parse the value of the TextBox to a double and add it to totalAmount
+                            if (double.TryParse(textBox.Text, out double value))
+                            {
+                                totalAmount += value;
+                            }
+                        }
+                    }
+                }
+            }
+
+            return totalAmount;
         }
 
 
